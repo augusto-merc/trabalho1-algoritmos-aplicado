@@ -9,12 +9,29 @@
 #include <stdio.h>
 
 // Variáveis Globais
+    //  Projeto 1
 const int size = 4; 
 int matrix[size][size]; 
 
+    // Projeto 3
+#define MAX_MECINE 10  // Definindo o limite de registros
+
+typedef struct 
+{
+    char *name;
+    double price;
+} Medicine;
+
+Medicine *medicines = NULL;  // Ponteiro para a matriz de registros
+int total_medicines = 0; // Contador de itens cadastrados
+
 // Módulos e Procedimentos
+//  Projeto 1
 void inputMatrix(); // Procedimento
 int magic_square(int matrix[size][size]); // Módulo
+
+// Projeto 3
+
 
 int main() 
 {
@@ -37,7 +54,7 @@ int main()
                 printf("O quadrado %s\n", magic_square(matrix) ? "eh magico" : "nao eh magico");
                 break;
             case 3: // Abre o terceiro projeto
-                magic_square(matrix);
+                printf("Insira a opcao que deseja\n");
                 break;
             case 0: // Sai do programa
                 printf("Saindo...\n");
@@ -52,7 +69,7 @@ int main()
 }
 
 
-
+// Projeto 1
 void inputMatrix() // Faz a leitura do input da matriz salvando os dados na variável global
 {
     printf("Insira os elementos da matriz %dx%d \n\n", size, size);
@@ -91,5 +108,32 @@ int magic_square(int matrix[size][size]) // Função que verifica se uma matriz 
 
     return 1;
 
+}
+
+
+// Projeto 3
+void project3Menu() 
+{
+    int option;
+    do 
+    {
+        printf("Projeto 3\n");
+        printf("\nMenu:\n");
+        printf("1. Cadastrar dados\n");
+        printf("2. Imprimir dados\n");
+        printf("3. Buscar dado\n");        
+        printf("4. Remover dado\n");
+        printf("5. Atualizar dado\n");
+        printf("6. Encerrar\n");
+        printf("Escolha uma opção: ");
+
+        scanf("%d", &option);
+
+        switch (option) {
+            
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+        }
+    } while (option != 6);
 }
 

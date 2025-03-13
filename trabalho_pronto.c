@@ -12,10 +12,10 @@
 
 // Variáveis Globais Projeto 1
 const int size = 4; 
-int matrix[size][size];  // Variável global para a matriz
+int magicSquare[4][4];  // Variável global para a matriz
 
 // Variáveis Globais Projeto 3
-int total_medicines = 1; // Contador de remédios cadastrados
+int total_medicines = 0; // Contador de remédios cadastrados
 
 // Estrutura Remédios Projeto 3
 typedef struct 
@@ -62,7 +62,7 @@ int main()
             case 1:  // Abre o Projeto 1
                 printf("Programa de verificacao de quadrados magicos\n");
                 inputMatrix();
-                printf("O quadrado %s\n", magic_square(matrix) ? "eh magico" : "nao eh magico");
+                printf("O quadrado %s\n", magic_square(magicSquare) ? "eh magico" : "nao eh magico");
                 break;
             case 3:  // Abre o Projeto 3
                 menuProject3();
@@ -94,7 +94,7 @@ void inputMatrix() // Procedimento para inserir os valores
         for (int j = 0; j < size; j++) 
         {
             printf("Elemento [%d][%d]: ", i, j);
-            scanf("%d", &matrix[i][j]);
+            scanf("%d", &magicSquare[i][j]);
         }
     }
 }
@@ -108,12 +108,12 @@ int magic_square(int matrix[size][size])
     {
         for (int j = 0; j < size; j++) 
         {
-            sum_reference_row += matrix[i][j];
-            sum_reference_column += matrix[j][i];
+            sum_reference_row += magicSquare[i][j];
+            sum_reference_column += magicSquare[j][i];
             if (i == 0) 
             {
-                sum_reference_d1 += matrix[j][j];
-                sum_reference_d2 += matrix[j][size-j-1];
+                sum_reference_d1 += magicSquare[j][j];
+                sum_reference_d2 += magicSquare[j][size-j-1];
             }
         }
         if (sum_reference_row != sum_reference_column || sum_reference_column != sum_reference_d1 || sum_reference_d1 != sum_reference_d2) 
@@ -196,7 +196,7 @@ void menuProject3()
                 int pos;
                 printf("Digite a posição para remover: ");
                 scanf("%d", &pos);
-                remover_dado(pos);
+                removeMedicine(pos);
                 break;
             }
             case 5: 
@@ -204,7 +204,7 @@ void menuProject3()
                 int pos;
                 printf("Digite a posição para atualizar: ");
                 scanf("%d", &pos);
-                atualizar_dado(pos);
+                updateMedicine(pos);
                 break;
             }
             case 6:
@@ -222,12 +222,12 @@ void createData()
     medicines[total_medicines-1].name = (char *)malloc(100 * sizeof(char));
     
     printf("Digite o nome do medicamento: ");
-    scanf("%s", medicines[total_medicines].name);
+    scanf("%s", medicines[total_medicines-1].name);
     
     printf("Digite o preço do medicamento: ");
-    scanf("%lf", &medicines[total_medicines].price);
+    scanf("%lf", &medicines[total_medicines-1].price);
     
-    medicines = (Medicine *)realloc(medicines, total_medicines++ * sizeof(Medicine));
+    medicines = (Medicine *)realloc(medicines, ++total_medicines * sizeof(Medicine));
 
     if (!medicines) 
     {

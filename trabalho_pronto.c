@@ -1,3 +1,11 @@
+/*
+    Autores:
+    - RA: 198020 | Nome: Augusto Cezar da Silva Mercado
+    - RA: 197590 | Nome: André Gonçalves da Silva
+    - RA: 197459 | Nome: Abner Matheus Moraes Saconi
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

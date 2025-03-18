@@ -41,12 +41,6 @@ void menuProject3();  // Procedimento
 
 int main() 
 {
-    medicines = (Medicine *)malloc(total_medicines * sizeof(Medicine)); // Aloca a memória do vetor de remédios
-    if (!medicines)
-    {
-        printf("Erro na alocação de memória!\n");
-        return 1;
-    }
 
     int option = 1;
     while (option != 0) 
@@ -55,6 +49,7 @@ int main()
         printf("0 - Sair\n");
         printf("1 - Projeto 1 (Quadrado Mágico)\n");
         printf("3 - Projeto 3 (Medicamentos)\n");
+        printf("> ");
         scanf("%d", &option);
 
         switch (option) 
@@ -129,6 +124,14 @@ int magic_square(int matrix[size][size])
 // Funções do Projeto 3
 void menuProject3() 
 {
+
+    medicines = (Medicine *)malloc(total_medicines+1 * sizeof(Medicine)); // Aloca a memória do vetor de remédios
+    if (!medicines)
+    {
+        printf("Erro na alocação de memória!\n");
+        return 1;
+    }
+
     int option;
 
     printf("Programa de registros de medicamentos!\n");
@@ -140,8 +143,8 @@ void menuProject3()
         printf("3. Buscar dado\n");
         printf("4. Remover dado\n");
         printf("5. Atualizar dado\n");
-        printf("6. Encerrar\n");
-        printf("Escolha uma opção: ");
+        printf("6. Encerrar projeto 3\n");
+        printf("> ");
         scanf("%d", &option);
 
         switch (option) 
@@ -157,44 +160,46 @@ void menuProject3()
                 char name[100];
                 double price;
                 int op, temp;
-                printf("Deseja buscar pelo nome ou pelo preço do produto: \n");
+                printf("\nDeseja buscar pelo nome ou pelo preço do produto: \n");
                 printf("1 - Nome\n");
                 printf("2 - Preço\n");
+                printf("> ");
                 scanf("%d", &op);
                 switch(op) 
                 {
                     case 1:
-                        printf("Digite o nome para busca: ");
+                        printf("\nDigite o nome para busca: ");
                         scanf("%s", name);
                         temp = searchMedicineName(name);
                         if (temp == -1) 
                         {
-                            printf("O produto %s nao foi encontrado!\n", name);
+                            printf("\nO produto %s nao foi encontrado!\n", name);
                             break;
                         }
-                        printf("O produto %s foi encontrado!\n", name);
+                        printf("\nO produto %s foi encontrado!\n", name);
                         printf("Posição: %d\n", temp);
                         break;
                     case 2:
-                        printf("Digite o preço para busca: ");
+                        printf("\nDigite o preço para busca: ");
                         scanf("%lf", &price);
                         temp = searchMedicinePrice(price);
                         if (temp == -1) 
                         {
-                            printf("O produto com preço %.2lf nao foi encontrado!\n", price);
+                            printf("\nO produto com preço %.2lf nao foi encontrado!\n", price);
                             break;
                         }
-                        printf("O produto com preço %.2lf foi encontrado!\n", price);
+                        printf("\nO produto com preço %.2lf foi encontrado!\n", price);
                         printf("Posição: %d\n", temp);
                         break;
                     default:
-                        printf("Opção inválida! Tente novamente.\n");
+                        printf("\nOpção inválida! Tente novamente.\n");
                 }
+                break;
             }
             case 4: 
             {
                 int pos;
-                printf("Digite a posição para remover: ");
+                printf("\nDigite a posição para remover: ");
                 scanf("%d", &pos);
                 removeMedicine(pos);
                 break;
@@ -202,16 +207,16 @@ void menuProject3()
             case 5: 
             {
                 int pos;
-                printf("Digite a posição para atualizar: ");
+                printf("\nDigite a posição para atualizar: ");
                 scanf("%d", &pos);
                 updateMedicine(pos);
                 break;
             }
             case 6:
-                printf("Encerrando o programa...\n");
+                printf("\nEncerrando o projeto 3...\n\n");
                 break;
             default:
-                printf("Opção inválida! Tente novamente.\n");
+                printf("\nOpção inválida! Tente novamente.\n");
         }
     } while (option != 6);
 }
@@ -219,30 +224,30 @@ void menuProject3()
 void createData() 
 {
     // Alocando memória para o nome do medicamento
-    medicines[total_medicines-1].name = (char *)malloc(100 * sizeof(char));
+    medicines[total_medicines].name = (char *)malloc(100 * sizeof(char));
     
-    printf("Digite o nome do medicamento: ");
-    scanf("%s", medicines[total_medicines-1].name);
+    printf("\nDigite o nome do medicamento: ");
+    scanf("%s", medicines[total_medicines].name);
     
     printf("Digite o preço do medicamento: ");
-    scanf("%lf", &medicines[total_medicines-1].price);
+    scanf("%lf", &medicines[total_medicines].price);
     
     medicines = (Medicine *)realloc(medicines, ++total_medicines * sizeof(Medicine));
 
     if (!medicines) 
     {
-        printf("Erro na alocação de memória!\n");
+        printf("\nErro na alocação de memória!\n");
         return;
     }
 
-    printf("Medicamento cadastrado com sucesso!\n");
+    printf("\nMedicamento cadastrado com sucesso!\n");
 }
 
 void printMedicines() 
 {
     if (total_medicines == 0) 
     {
-        printf("Nenhum medicamento cadastrado.\n");
+        printf("\nNenhum medicamento cadastrado.\n");
         return;
     }
 
@@ -288,7 +293,7 @@ void removeMedicine(int position) {
     free(medicines[position].name);
 
     // Deslocando os elementos para preencher o espaço da posição removida
-    for (int i = position; i < total_medicines - 1; i++) 
+    for (int i = position; i < total_medicines-1; i++) 
     {
         medicines[i] = medicines[i + 1];
     }
